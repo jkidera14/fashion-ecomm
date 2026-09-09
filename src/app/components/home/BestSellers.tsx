@@ -1,4 +1,4 @@
-import { dummyBestSellers } from "@/constants/dummy Products";
+import { dummyBestSellers } from "@/constants/dummyProducts";
 import SectionHeader from "../ui/SectionHeader";
 import ProductCard from "../products/ProductCard";
 
