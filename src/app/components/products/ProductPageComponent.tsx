@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import BreadCrumb from "../ui/BreadCrumb";
 
 const images = [
     "/images/gallery1.png",
@@ -35,6 +36,19 @@ export default function ProductPageComponent() {
     const [selectedColor, setSelectedColor] = useState(colors[0]);
     return (
         <section className="py-12">
+            <BreadCrumb items={[
+                {
+                    label: "Home",
+                    href: "/"
+                },
+                {
+                    label: "Shop",
+                    href: "/shop"
+                },
+                {
+                    label: "Product name"
+                }
+            ]} />
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
                 {/* Images */}
                 <div className="flex flex-col-reverse gap-4 md:flex-row">
@@ -50,9 +64,46 @@ export default function ProductPageComponent() {
                             </button>
                         ))}
                     </div>
+                    {/* Main Image */}
+                    <div className="relative h-87.5 w-full overflow-hidden
+                rounded-2xl bg-surface sm:h-125">
+                        <Image src={selectedImage || ""} alt="Product" fill className="object-cover" />
+                    </div>
+                </div>
+                {/* Product Details */}
+                <div className="lg:sticky lg:top-24 lg:h-fit">
+                    <h2 className="text-3xl font-bold sm:text-4xl">
+                        Classic Denim Jacket
+                    </h2>
+
+                    <p className="mt-6 text-2xl font-bold sm:text-3xl">
+                        $79.99
+                    </p>
+
+                    <p className="mt-6 leading-8 text-muted-foreground">
+                        Crafted from premium denim with a timeless silhouette.
+                        Perfect for layering throughout every season.
+                    </p>
+
+                    {/* Sizes */}
+                    <div className="mt-8">
+                        <p className="mb-3 font-semibold">Select Size</p>
+
+                        <div className="flex flex-wrap gap-3">
+
+                            {sizes.map((size) => (
+                                <button
+                                    className={`flex h-11 w-11 items-center justify-center
+                                    rounded-lg border font-medium transition ${selectedSize === size ?
+                                            "border-primary bg-primary text-primary-foreground"
+                                            : "border-border hover:border-primary"}`} onClick={() => setSelectedSize(size)}>
+                                    {size}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </section>
     )
 }
