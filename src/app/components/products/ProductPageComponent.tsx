@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import BreadCrumb from "../ui/BreadCrumb";
+import Button from "../ui/Button";
+import { IoBagAddOutline } from "react-icons/io5";
 
 const images = [
     "/images/gallery1.png",
@@ -92,18 +94,63 @@ export default function ProductPageComponent() {
                         <div className="flex flex-wrap gap-3">
 
                             {sizes.map((size) => (
-                                <button
-                                    className={`flex h-11 w-11 items-center justify-center
-                                    rounded-lg border font-medium transition ${selectedSize === size ?
-                                            "border-primary bg-primary text-primary-foreground"
-                                            : "border-border hover:border-primary"}`} onClick={() => setSelectedSize(size)}>
+                                <button key={size} className={`flex h-11 w-11 items-center justify-center rounded-lg
+                                border font-medium transition ${selectedSize === size ? "border-primary bg-primary text-primary-foreground" :
+                                        "border-border hover:border-primary"}`} onClick={() => setSelectedSize(size)}>
                                     {size}
                                 </button>
                             ))}
                         </div>
                     </div>
+                    <div>
+
+                        {/* Colors */}
+                        <div className="mt-8">
+                            <p className="mb-3 font-semibold">
+                                Select Colors
+                            </p>
+
+                            <div className="flex gap-3">
+                                {colors.map((color) => (
+                                    <button key={color.name} title={color.name} onClick={() => setSelectedColor(color)} className={`
+                                flex h-11 w-11 items-center justify-center rounded-full border transition ${selectedColor.name === color.name
+                                            ? "border-primary ring-2 ring-primary ring-offset-2" : "border-border"}`}>
+
+                                        <span className="h-8 w-8 rounded-full"
+                                            style={{
+                                                backgroundColor: color.value,
+                                            }} />
+
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Selected Values */}
+                        <div className="mt-6 rounded-xl bg-surface p-4">
+                            <p className="text-sm">
+                                <span className="font-semibold">
+                                    Selected Size:
+                                </span>{" "}
+                                {selectedSize}
+                            </p>
+                            <p className="text-sm mt-2">
+                                <span className="font-semibold">
+                                    Selected Color:
+                                </span>{" "}
+                                {selectedColor.name}
+
+                            </p>
+                        </div>
+
+                        <div className="mt-8">
+                            <Button className="w-full sm:w-fit" leftIcon={<IoBagAddOutline size={20} />} paddingX="px-20">
+                                Add to Cart
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-    )
+    );
 }
