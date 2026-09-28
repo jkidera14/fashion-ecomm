@@ -1,7 +1,7 @@
 import { dummyShopProducts } from "@/constants/dummyProducts";
-import FrontendLayout from "../components/layouts/FrontendLayout";
-import ProductCard from "../components/products/ProductCard";
-import FilterOptions from "../components/shop/FilterOptions";
+import FrontendLayout from "@/components/layouts/FrontendLayout";
+import ProductCard from "@/components/products/ProductCard";
+import FilterOptions from "@/components/shop/FilterOptions";
 
 
 

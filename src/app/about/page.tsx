@@ -1,5 +1,6 @@
+import FrontendLayout from "@/components/layouts/FrontendLayout";
 import Image from "next/image";
-import FrontendLayout from "../components/layouts/FrontendLayout";
+
 
 
 export default function AboutPage() {
