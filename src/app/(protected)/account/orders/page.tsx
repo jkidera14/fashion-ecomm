@@ -1,10 +1,12 @@
 import FrontendLayout from "@/components/layouts/FrontendLayout";
 import BreadCrumb from "@/components/ui/BreadCrumb";
 import Image from "next/image";
+import Link from "next/link";
+import { FiEye } from "react-icons/fi";
 
 const orders = [
     {
-        id: "#12345",
+        id: "12345",
         image: "/images/product1.png",
         totalItems: 3,
         totalPrice: 239.97,
@@ -12,7 +14,7 @@ const orders = [
         status: "Delivered",
     },
     {
-        id: "#12346",
+        id: "12346",
         image: "/images/product2.png",
         totalItems: 1,
         totalPrice: 69.99,
@@ -88,10 +90,16 @@ export default function OrdersPage() {
                                     </div>
                                 </div>
                             </div>
+
+                            <Link href={`/account/orders/${order.id}`}>
+                                <button className="rounded-lg p-4 transition bg-surface cursor-pointer">
+                                    <FiEye />
+                                </button>
+                            </Link>
                         </div>
                     ))}
                 </div>
             </section>
         </FrontendLayout>
-    )
-}
+    );
+};
