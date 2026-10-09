@@ -1,4 +1,6 @@
 import FrontendLayout from "@/components/layouts/FrontendLayout";
+import BreadCrumb from "@/components/ui/BreadCrumb";
+import Input from "@/components/ui/Input";
 import z from "zod";
 
 const checkoutSchema = z.object({
@@ -54,8 +56,49 @@ export default function CheckoutPage() {
         <FrontendLayout>
             <section className="mx-auto max-w-7xl py-12">
                 <div className="mb-10">
+                    <BreadCrumb items={[
+                        {
+                            label: "Home",
+                            href: "/"
+                        },
+                        {
+                            label: "Cart",
+                            href: "/cart"
+                        },
+                        {
+                            label: "Checkout"
+                        }
+                    ]} />
 
+                    <p className="mt-2 text-muted-foreground">
+                        Complete your order securely.
+                    </p>
                 </div>
+
+                <form className="grid gap-10 lg:grid-cols-[2fr_1fr]">
+                    {/* Left */}
+                    <div className="space-y-8">
+                        {/* Shipping Address */}
+                        <div className="rounded-2xl border border-border p-6">
+                            <h2 className="font-semibold text-2xl">
+                                Shipping Address
+                            </h2>
+                            <div className="mt-6 grid gap-5 md:grid-cols-2">
+                                <Input label="First Name" placeholder="John" />
+                                <Input label="Last Name" placeholder="Doe" />
+                                <Input label="Email" placeholder="john@gmail.com" />
+                                <Input label="Phone Number" placeholder="+254 700 000 000" />
+                                <Input label="State" placeholder="California" />
+                                <Input label="City" placeholder="Burbank" />
+
+                                <div>
+                                    <Input label="Street Address" placeholder="No 3 ......" variant="textarea" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Right */}
+                </form>
             </section>
         </FrontendLayout>
     )
