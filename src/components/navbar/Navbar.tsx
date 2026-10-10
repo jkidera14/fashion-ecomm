@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiMenu, FiX } from "react-icons/fi";
 import { IoBagOutline, IoSearch } from "react-icons/io5";
+import { useSearchStore } from "@/store/search-store";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -16,6 +17,7 @@ const navLinks = [
 ]
 
 export default function Navbar() {
+    const { openSearch } = useSearchStore();
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
@@ -47,7 +49,7 @@ export default function Navbar() {
 
                     <div className="flex items-center gap-2">
                         {/* search */}
-                        <button className="rounded-full p-2 text-foreground transition-colors hover:bg-surface">
+                        <button onClick={() => openSearch()} className="rounded-full p-2 text-foreground transition-colors hover:bg-surface">
                             <IoSearch size={22} />
                         </button>
                         {/* user */}
