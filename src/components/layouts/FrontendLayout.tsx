@@ -2,7 +2,12 @@ import Footer from "../home/Footer"
 import Navbar from "../navbar/Navbar"
 import SearchInput from "../ui/SearchInput"
 
-export default function FrontendLayout({ children }: { children: React.ReactNode }) {
+export default function FrontendLayout({
+    children }:
+    {
+        children: React.ReactNode;
+
+    }) {
     return (
         <>
             <Navbar />

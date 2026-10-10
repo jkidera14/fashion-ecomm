@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   description: "Fashion E-Commerce Website by Rakide John",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
