@@ -1,45 +1,48 @@
+"use client"
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
+
+import SidebarContent from "./SidebarContent";
 
 
-const navigation = [
-    {
-        title: "MAIN",
-        items: [
-            {
-                href: "/admin",
-                label: "Dashboard",
-                icon: FiHome,
-            },
-        ],
-    },
-    {
-        title: "CATALOG",
-        items: [
-            {
-                href: "/admin/products",
-                label: "Products",
-                icon: FiPackage,
-            },
-            {
-                href: "/admin/add-product",
-                label: "Create Product",
-                icon: LuCirclelus,
-            },
-        ],
-    },
-    {
-        title: "SALES",
-        items: [
-            {
-                href: "/admin/orders",
-                label: "Orders",
-                icon: FiBox,
-            },
-        ],
-    },
-];
+
 
 export default function AdminSidebar() {
+    const pathname = usePathname();
+    const [open, setOpen] = useState(false);
     return (
-        <div>AdminSidebar</div>
+        <>
+            <header className="fixed top-0 w-full z-40 flex h-16 items-center 
+        justify-between border-b border-border bg-background px-4 lg:hidden">
+                <Link href="/" className="text-xl font-bold">
+                    Admin Panel
+                </Link>
+                <button onClick={() => setOpen(true)} className="rounded-lg border border-border p-2">
+                    <FiMenu size={22} />
+                </button>
+            </header>
+
+            {/* OverLay */}
+            {open && (
+                <div className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+                    onClick={() => setOpen(false)} />
+            )}
+
+            {/* Mobile Drawer */}
+            <aside className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col border-r border-border bg-background
+                                transition-transform duration-300 lg:hidden ${open ? "translate-x-0" : "translate-x-full"}`}>
+
+                <button onClick={() => setOpen(false)} className="absolute right-4 top-5 rounded-lg p-2 hover:bg-surface">
+                    <FiX size={22} />
+                </button>
+
+                <SidebarContent />
+            </aside>
+            {/* Desktop SideBar */}
+
+        </>
     )
 }
