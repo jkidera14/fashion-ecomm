@@ -39,9 +39,16 @@ export default function AdminSidebar() {
                     <FiX size={22} />
                 </button>
 
-                <SidebarContent />
+                <SidebarContent pathname={pathname} closeSidebar={() =>
+                    setOpen(false)} />
             </aside>
             {/* Desktop SideBar */}
+
+            <aside className="sticky top-0 hidden h-screen w-72 flex-col border-r border-border bg-background lg:flex">
+                <SidebarContent
+                    pathname={pathname}
+                    closeSidebar={() => setOpen(false)} />
+            </aside>
 
         </>
     )

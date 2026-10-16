@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiBox, FiHome, FiPackage } from "react-icons/fi";
+import { FiBox, FiHome, FiLogOut, FiPackage, FiShoppingBag } from "react-icons/fi";
 import { LuCirclePlus } from "react-icons/lu";
 
 interface SidebarContentProps {
@@ -63,14 +63,36 @@ export default function SidebarContent({ pathname, closeSidebar }: SidebarConten
                         <div className="space-y-1">
                             {section.items.map((item) => {
                                 const Icon = item.icon
+
+                                const isActive = pathname === item.href
                                 return (
-                                    <Link href={item.href} key={item.href} onClick={() => }>
+                                    <Link href={item.href} key={item.href} onClick={() => closeSidebar()}
+                                        className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition
+                                    ${isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`}>
+                                        <Icon size={18} />
+                                        {item.label}
                                     </Link>
                                 )
                             })}
                         </div>
                     </div>
                 ))}
+            </div>
+
+
+            {/* Bottom */}
+            <div className="border-t border-border p-4">
+                <Link href="/shop" className="mb-2 flex items-center gap-3 rounded-xl px-4 py-3 text-sm
+                font-medium transition hover:bg-surface">
+                    <FiShoppingBag size={18} />
+                    View Shop
+                </Link>
+
+                <button className="flex w-full items-center gap-3 rounded-xl px-4 text-left text-sm font-medium
+                                    text-destructive transition hover:bg-destructive/10">
+                    <FiLogOut size={18} />
+                    Logout
+                </button>
             </div>
 
         </>
