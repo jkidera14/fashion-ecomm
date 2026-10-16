@@ -2,6 +2,11 @@ import Link from "next/link";
 import { FiBox, FiHome, FiPackage } from "react-icons/fi";
 import { LuCirclePlus } from "react-icons/lu";
 
+interface SidebarContentProps {
+    pathname: string,
+    closeSidebar: () => void
+}
+
 const navigation = [
     {
         title: "MAIN",
@@ -40,7 +45,7 @@ const navigation = [
     },
 ];
 
-export default function SidebarContent() {
+export default function SidebarContent({ pathname, closeSidebar }: SidebarContentProps) {
     return (
         <>
             <div className="border border-border px-6 py-6">
@@ -52,8 +57,18 @@ export default function SidebarContent() {
                 {navigation.map((section) => (
                     <div key={section.title} className="mb-8">
                         <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-
+                            {section.title}
                         </p>
+
+                        <div className="space-y-1">
+                            {section.items.map((item) => {
+                                const Icon = item.icon
+                                return (
+                                    <Link href={item.href} key={item.href} onClick={() => }>
+                                    </Link>
+                                )
+                            })}
+                        </div>
                     </div>
                 ))}
             </div>
