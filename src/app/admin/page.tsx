@@ -48,7 +48,7 @@ export default function DashboardPage() {
                                 </div>
 
                                 <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                                    <Icon size={26} className="" />
+                                    <Icon size={26} className=" flex" />
                                 </div>
                             </div>
                         </div>
