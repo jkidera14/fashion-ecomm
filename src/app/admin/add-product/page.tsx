@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react";
+
 const availableSizes = ["S", "M", "L", "XL", "XXL"];
 
 const availableColors = [
@@ -15,6 +17,10 @@ const availableColors = [
 
 
 export default function AddProductPage() {
+    const [images, setImages] = useState<File[]>([]);
+    const [sizes, setSizes] = useState<string[]>([]);
+    const [colors, setColors] = useState<string[]>([]);
+    const [bestSeller, setBestSeller] = useState(false);
     return (
         <div>AddProductPage</div>
     )
