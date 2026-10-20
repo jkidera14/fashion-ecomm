@@ -1,6 +1,8 @@
 "use client"
 
 import { useRef, useState } from "react";
+import { FiX } from "react-icons/fi";
+import { LuPlus } from "react-icons/lu";
 
 const availableSizes = ["S", "M", "L", "XL", "XXL"];
 
@@ -58,10 +60,35 @@ export default function AddProductPage() {
                 <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
                     {Array.from({ length: 4 }).map((_, index) => (
                         <div key={index}>
+                            {images[index] ? (
+                                <div className="relative aspect-square overflow-hidden rounded-xl border border-border">
+                                    <img src={URL.createObjectURL(images[0])} alt="selectedimage" className="w-full h-full object-cover" />
 
+                                    <button onClick={() => removeImage(index)} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center
+                                                        rounded-full bg-background shadow transition hover:bg-destructive hover:text-white">
+                                        <FiX />
+                                    </button>
+                                </div>
+                            ) : (
+                                <button onClick={() => inputRef.current?.click()} className="flex aspect-square w-full flex-col items-center justify-center rounded-xl
+                              border-2 border-dashed border-border transition hover:border-primary hover:bg-surface">
+                                    <LuPlus size={30} className="text-muted-foreground" />
+
+                                    <span className="mt-3 text-sm text-muted-foreground">
+                                        Upload Image
+                                    </span>
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>
+
+                <input hidden ref={inputRef} multiple type="file" accept="image/*" onChange=
+                    {handleImageChange} />
+
+                <p className="mt-4 text-sm text-muted-foreground">
+                    Upload between 1 and 4 product images.
+                </p>
             </section>
         </div>
     )
