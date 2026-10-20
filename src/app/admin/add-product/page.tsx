@@ -1,5 +1,6 @@
 "use client"
 
+import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
@@ -40,6 +41,16 @@ export default function AddProductPage() {
     const removeImage = (index: number) => {
         setImages((prev) => prev.filter((_, i) => i !== index));
     }
+
+    const toggleSize = (size: string) => {
+        setSizes((prev) => prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size],
+        );
+    };
+    const toggleColor = (color: string) => {
+        setColors((prev) => prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color],
+        );
+    };
+
     return (
         <div className="mx-auto max-w-5xl space-y-8">
             {/* header */}
@@ -124,7 +135,7 @@ export default function AddProductPage() {
                         <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
                         transition focus:border-primary">
                             <option>T-Shirts</option>
-                            <option>Hoodie</option>
+                            <option>Hoodies</option>
                             <option>Jackets</option>
                             <option>Jeans</option>
                             <option>Shorts</option>
@@ -133,6 +144,72 @@ export default function AddProductPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Product Sizes */}
+            <section className="rounded-2xl border border-border bg-background p-6">
+                <h2 className="text-lg font-semibold mb-5">
+                    Available Sizes
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                    {availableSizes.map((size) => {
+                        const selected = sizes.includes(size);
+                        return (
+                            <button onClick={() => toggleSize(size)} key={size} type="button" className={`h-11 w-16 rounded-lg border font-medium transition 
+                            ${selected ? "border-primary bg-primary text-primary-foreground" :
+                                    "border-border hover:border-primary hover:bg-primary/5"}`}>
+                                {size}
+                            </button>
+                        )
+                    })}
+                </div>
+            </section>
+
+            {/* Product Colors */}
+            <section className="rounded-2xl border border-border bg-background p-6">
+                <h2 className="text-lg font-semibold mb-5">
+                    Available Colors
+                </h2>
+
+                <div className="flex flex-wrap gap-4">
+                    {availableColors.map((color) => {
+                        const selected = colors.includes(color.name);
+                        return (
+                            <button onClick={() => toggleColor(color.name)} key={color.name} type="button" className={`flex items-center gap-3 rounded-xl border px-4 py-3 transition
+                            ${selected ? "border-primary bg-primary/5" : "border-border hover:border-primary"}`}>
+                                <span className="h-6 w-6 rounded-full border border-border" style={{
+                                    backgroundColor: color.value
+                                }} />
+
+                                <span className="font-medium">
+                                    {color.name}
+                                </span>
+                            </button>
+                        )
+                    })}
+                </div>
+            </section>
+
+            {/* Product Options */}
+            <section className="rounded-2xl border border-border bg-background p-6">
+                <h2 className="text-lg font-semibold mb-5">
+                    Product Options
+                </h2>
+                <div className="space-y-4">
+                    <label className="flex cursor-pointer items-center gap-3">
+                        <input type="checkbox" checked={bestSeller} className="h-5 w-5 accent-primary" onChange={(e) => setBestSeller(e.target.checked)} />
+
+                        <span>
+                            Mark as Best Seller
+                        </span>
+                    </label>
+                </div>
+            </section>
+
+            <div className="flex justify-end">
+                <Button>
+                    Save Product
+                </Button>
+            </div>
         </div>
     )
 }
