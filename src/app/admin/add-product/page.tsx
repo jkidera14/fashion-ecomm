@@ -1,5 +1,6 @@
 "use client"
 
+import Input from "@/components/ui/Input";
 import { useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { LuPlus } from "react-icons/lu";
@@ -62,7 +63,7 @@ export default function AddProductPage() {
                         <div key={index}>
                             {images[index] ? (
                                 <div className="relative aspect-square overflow-hidden rounded-xl border border-border">
-                                    <img src={URL.createObjectURL(images[0])} alt="selectedimage" className="w-full h-full object-cover" />
+                                    <img src={URL.createObjectURL(images[index])} alt="selectedimage" className="w-full h-full object-cover" />
 
                                     <button onClick={() => removeImage(index)} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center
                                                         rounded-full bg-background shadow transition hover:bg-destructive hover:text-white">
@@ -89,6 +90,48 @@ export default function AddProductPage() {
                 <p className="mt-4 text-sm text-muted-foreground">
                     Upload between 1 and 4 product images.
                 </p>
+            </section>
+
+            {/* Product Information */}
+            <section className="space-y-5 rounded-2xl border border-border bg-background p-6">
+                <h2 className="text-lg font-semibold">
+                    Product Information
+                </h2>
+                <Input label="Product Name" placeholder="Classic Black Hoodie" />
+                <Input label="Product Description" placeholder="Write a detailed description........" />
+
+                <div className="grid gap-5 md:grid-cols-3">
+                    <Input label="Price" placeholder="$79.99" />
+                    <Input label="Stock Quantity" placeholder="50" />
+                </div>
+
+                <div className="gris gap-5 md:grid-cols-2">
+                    <div>
+                        <label className="mb-2 block text-sm font-medium">
+                            Category
+                        </label>
+                        <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
+                        transition focus:border-primary">
+                            <option>Men</option>
+                            <option>Women</option>
+                            <option>Children</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="mb-2 block text-sm font-medium">
+                            Product Type
+                        </label>
+                        <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
+                        transition focus:border-primary">
+                            <option>T-Shirts</option>
+                            <option>Hoodie</option>
+                            <option>Jackets</option>
+                            <option>Jeans</option>
+                            <option>Shorts</option>
+                            <option>Shoes</option>
+                        </select>
+                    </div>
+                </div>
             </section>
         </div>
     )
