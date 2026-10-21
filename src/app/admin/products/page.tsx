@@ -51,10 +51,10 @@ export default function ProductsPage() {
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
                 <div>
                     <h2 className="text-3xl font-semibold">
-                        Add Product
+                        Products
                     </h2>
                     <p className="mt-2 text-muted-foreground">
-                        Create a new product for your store.
+                        View products on your store.
                     </p>
                 </div>
                 <Link href="/add-product">

@@ -1,0 +1,93 @@
+
+
+const orders = [
+    {
+        id: "#1001",
+        customer: "John Doe",
+        total: 149.99,
+        items: 3,
+        payment: "Paid",
+        status: "Delivered",
+        date: "Jul 17, 2026",
+    },
+    {
+        id: "#1002",
+        customer: "Jane Smith",
+        total: 84.5,
+        items: 2,
+        payment: "Paid",
+        status: "Processing",
+        date: "Jul 16, 2026",
+    },
+    {
+        id: "#1003",
+        customer: "Michael Johnson",
+        total: 219.99,
+        items: 5,
+        payment: "Pending",
+        status: "Pending",
+        date: "Jul 15, 2026",
+    },
+    {
+        id: "#1004",
+        customer: "Sarah Wilson",
+        total: 59.99,
+        items: 1,
+        payment: "Refunded",
+        status: "Cancelled",
+        date: "Jul 14, 2026",
+    },
+];
+
+export default function OrdersPage() {
+    return (
+        <section>
+            {/* Header */}
+            <div>
+                <h2 className="text-3xl font-semibold">
+                    Orders
+                </h2>
+                <p className="mt-2 text-muted-foreground">
+                    View and manage customer orders.
+                </p>
+            </div>
+
+            {/* Table */}
+            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-background">
+                <div className="overflow-x-auto">
+                    <table className="min-w-full">
+
+                        <thead className="border-b border-border bg-surface">
+                            <tr>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Order
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Customer
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Items
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Total
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Payment
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Status
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Date
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </section>
+    )
+}
