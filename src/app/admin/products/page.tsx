@@ -1,6 +1,8 @@
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 import Link from "next/link";
 import { FiPlus } from "react-icons/fi";
+import { tr } from "zod/locales";
 
 const products = [
     {
@@ -59,6 +61,51 @@ export default function ProductsPage() {
                         Add Product
                     </Button>
                 </Link>
+            </div>
+
+            {/* Table */}
+            <div className="mt-8 overflow-hidden rounded-2xl border-border bg-background">
+                <div>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full">
+                            <thead className="border-b border-border bg-surface">
+                                <tr>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold">
+                                        Product
+                                    </th>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold">
+                                        Category
+                                    </th>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold">
+                                        Price
+                                    </th>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold">
+                                        Stock
+                                    </th>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold">
+                                        Status
+                                    </th>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {products.map((product) => (
+                                    <tr key={product.id} className="border-b border-border last:border-0 hover:bg-surface/50">
+                                        <td className="px-6 py-5">
+                                            <div className="flex items-center gap-4">
+                                                <Image src={product.image} alt={product.name} width={60} height={70} className="rounded-lg object-cover" />
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
     )
