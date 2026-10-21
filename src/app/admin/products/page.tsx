@@ -98,10 +98,26 @@ export default function ProductsPage() {
                                             <div className="flex items-center gap-4">
                                                 <Image src={product.image} alt={product.name} width={60} height={70} className="rounded-lg object-cover" />
 
-                                                <p>
+                                                <p className="font-medium">
                                                     {product.name}
                                                 </p>
                                             </div>
+                                        </td>
+
+                                        <td className="px-6 py-5">
+                                            {product.category}
+                                        </td>
+                                        <td className="px-6 py-5 font-medium">
+                                            {product.price.toFixed(2)}
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            {product.stock}
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <span className={`rounded-full px-3 py-1 text-xs font-medium ${product.stock > 0 ? "bg-green-100 text-green-700 dark:bg-green-500/15 dark:text-green-400" :
+                                                "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-400"}`}>
+                                                {product.stock > 0 ? "Active" : "Out of Stock"}
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}
