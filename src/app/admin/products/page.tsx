@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
+import { FaTrashAlt } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { tr } from "zod/locales";
 
@@ -118,6 +119,10 @@ export default function ProductsPage() {
                                                 "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-400"}`}>
                                                 {product.stock > 0 ? "Active" : "Out of Stock"}
                                             </span>
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <FaTrashAlt
+                                                className="text-destructive" />
                                         </td>
                                     </tr>
                                 ))}
