@@ -98,6 +98,9 @@ export default function ProductsPage() {
                                             <div className="flex items-center gap-4">
                                                 <Image src={product.image} alt={product.name} width={60} height={70} className="rounded-lg object-cover" />
 
+                                                <p>
+                                                    {product.name}
+                                                </p>
                                             </div>
                                         </td>
                                     </tr>
