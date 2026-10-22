@@ -56,7 +56,6 @@ export default function OrdersPage() {
             <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-background">
                 <div className="overflow-x-auto">
                     <table className="min-w-full">
-
                         <thead className="border-b border-border bg-surface">
                             <tr>
                                 <th className="px-6 py-4 text-left text-sm font-semibold">
@@ -85,6 +84,20 @@ export default function OrdersPage() {
                                 </th>
                             </tr>
                         </thead>
+
+                        <tbody>
+                            {orders.map((order) => (
+                                <tr key={order.id} className="border-b border-border last:border-0 hover:bg-surface/50">
+                                    <td className="px-6 py-5">
+                                        <div>
+                                            <p>
+
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>
