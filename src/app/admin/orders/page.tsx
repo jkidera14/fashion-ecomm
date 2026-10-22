@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { FiEye } from "react-icons/fi";
 
 
 const orders = [
@@ -90,10 +92,43 @@ export default function OrdersPage() {
                                 <tr key={order.id} className="border-b border-border last:border-0 hover:bg-surface/50">
                                     <td className="px-6 py-5">
                                         <div>
-                                            <p>
-
+                                            <p className="font-medium">{order.id}</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                {order.date}
                                             </p>
                                         </div>
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        {order.customer}
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        {order.items}
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        {order.total.toFixed(2)}
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        <span className={`rounded-full px-3 py-1 text-xs font-medium ${order.payment === "Paid" ? "bg-green-100 text-green-700 dark:bg-green-500/15 dark:text-green-400" :
+                                            order.payment === "Pending" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/15 dark:text-yellow-400" :
+                                                "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-400"}`}>
+                                            {order.payment}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        <span className="rounded-full px-3 py-1 text-xs font-medium">
+                                            {order.status}
+                                        </span>
+                                    </td>
+
+                                    <td className="px-6 py-5">
+                                        {order.date}
+                                    </td>
+                                    <td className="px-6 py-5">
+                                        <Link href={`/admin/orders/orderId`}>
+                                            <button className="rounded-lg p-4 transition hover:bg-surface">
+                                                <FiEye />
+                                            </button>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
