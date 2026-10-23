@@ -48,40 +48,39 @@ export default function OrdersPage() {
                                     Jane Doe
                                 </p>
                             </div>
-                        </div>
-                        <div>
-                            <p className="text-sm text-muted-foreground">
-                                Email
-                            </p>
-                            <p className="mt-1 font-medium">
-                                Jane@gmail.com
-                            </p>
-                        </div>
-                        <div>
-                            <p className="text-sm text-muted-foreground">
-                                Phone
-                            </p>
-                            <p className="mt-1 font-medium">
-                                +1551515151
-                            </p>
-                        </div>
-                        <div>
-                            <p className="text-sm text-muted-foreground">
-                                Address
-                            </p>
-                            <p className="mt-1 font-medium">
-                                25 Main Street,
-                                <br />
-                                New York, USA
-                            </p>
+                            <div>
+                                <p className="text-sm text-muted-foreground">
+                                    Email
+                                </p>
+                                <p className="mt-1 font-medium">
+                                    Jane@gmail.com
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-sm text-muted-foreground">
+                                    Phone
+                                </p>
+                                <p className="mt-1 font-medium">
+                                    +1551515151
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-sm text-muted-foreground">
+                                    Address
+                                </p>
+                                <p className="mt-1 font-medium">
+                                    25 Main Street,
+                                    <br />
+                                    New York, USA
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+                {/* Right Side */}
             </div>
-
-
-            {/* Right Side */}
-        </div>
-        </section >
+        </section>
     )
 }
