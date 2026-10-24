@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button";
 import Image from "next/image";
 
 const products = [
@@ -98,8 +99,15 @@ export default function OrdersPage() {
                                         </h3>
 
                                         <p className="mt-1 text-sm text-muted-foreground">
-
+                                            Size: {product.size}
                                         </p>
+                                        <p className="mt-1 text-sm text-muted-foreground">
+                                            Quantity: {product.quantity}
+                                        </p>
+                                    </div>
+
+                                    <div className="font-semibold">
+                                        ${(product.price * product.quantity).toFixed(2)}
                                     </div>
                                 </div>
                             ))}
@@ -107,9 +115,106 @@ export default function OrdersPage() {
                     </div>
                 </div>
 
-
                 {/* Right Side */}
+                <div className="space-y-8">
+                    {/* Status */}
+
+                    <div className="rounded-2xl border border-border bg-background p-6">
+                        <h2 className="text-lg font-semibold">
+                            Order Status
+                        </h2>
+
+                        <div className="mt-6">
+                            <label className="mb-2 block text-sm font-medium">
+                                Status
+                            </label>
+
+                            <select className="h-12 w-full rounded-lg border border-border bg-background px-4 
+                            outline-none focus:border-primary">
+                                <option>Pending</option>
+                                <option>Processing</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+
+                        <Button className="mt-6 w-full">
+                            Update Order
+                        </Button>
+                    </div>
+                    {/* Order Summary */}
+
+                    <div className="rounded-2xl border border-border bg-background p-6">
+                        <h2 className="text-lg font-semibold">
+                            Order Summary
+                        </h2>
+
+                        <div className="mt-6 space-y-4">
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                    Subtotal
+                                </span>
+
+                                <span>
+                                    $555
+                                </span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                    Shipping
+                                </span>
+
+                                <span>
+                                    $555
+                                </span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                    Tax
+                                </span>
+
+                                <span>
+                                    $555
+                                </span>
+                            </div>
+
+                            <div className="border-t border-border pt-4 flex justify-between text-lg font-semibold">
+                                <span>
+                                    Total
+                                </span>
+                                <span>
+                                    $5000
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Payment */}
+                    <div className="rounded-2xl border border-border bg-background p-6">
+                        <h2 className="text-lg font-semibold">
+                            Payment
+                        </h2>
+
+                        <div className="mt-5 items-center justify-between">
+                            <span className="text-muted-foreground">
+                                Method:&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                &nbsp;&nbsp;&nbsp; Stripe
+                            </span>
+                        </div>
+                        <div className="mt-5 items-center justify-between">
+                            <span className="text-muted-foreground">
+                                Status:&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                &nbsp;&nbsp;&nbsp; Paid
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-    )
+    );
 }
