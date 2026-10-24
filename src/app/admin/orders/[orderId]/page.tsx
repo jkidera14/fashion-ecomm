@@ -196,20 +196,20 @@ export default function OrdersPage() {
                             Payment
                         </h2>
 
-                        <div className="mt-5 items-center justify-between">
+                        <div className="mt-5 flex items-center justify-between">
                             <span className="text-muted-foreground">
-                                Method:&nbsp;&nbsp;&nbsp;
+                                Method
                             </span>
                             <span>
-                                &nbsp;&nbsp;&nbsp; Stripe
+                                Stripe
                             </span>
                         </div>
-                        <div className="mt-5 items-center justify-between">
+                        <div className="mt-5 flex items-center justify-between">
                             <span className="text-muted-foreground">
-                                Status:&nbsp;&nbsp;&nbsp;
+                                Status
                             </span>
                             <span>
-                                &nbsp;&nbsp;&nbsp; Paid
+                                Paid
                             </span>
                         </div>
                     </div>
