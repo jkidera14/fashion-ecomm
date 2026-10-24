@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 const products = [
     {
@@ -74,6 +75,34 @@ export default function OrdersPage() {
                                     New York, USA
                                 </p>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Products */}
+                    <div className="rounded-2xl border border-border bg-background p-6">
+                        <div className="border-b border-border">
+                            <h2 className="text-lg font-semibold">
+                                Order Items
+                            </h2>
+                        </div>
+
+                        <div className="divide-y divide-border">
+                            {products.map((product) => (
+                                <div key={product.id} className="flex items-center gap-5 p-6">
+                                    <Image src={product.image} alt={product.name}
+                                        width={80} height={90} className="rounded-lg object-cover" />
+
+                                    <div className="flex-1">
+                                        <h3 className="font-semibold">
+                                            {product.name}
+                                        </h3>
+
+                                        <p className="mt-1 text-sm text-muted-foreground">
+
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
