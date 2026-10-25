@@ -52,6 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Address: 'Address',
+  Product: 'Product',
+  ProductImage: 'ProductImage',
+  ProductSize: 'ProductSize',
+  ProductColor: 'ProductColor',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification'
@@ -79,11 +86,111 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  phone: 'phone',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AddressScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phone: 'phone',
+  street: 'street',
+  city: 'city',
+  state: 'state',
+  postalCode: 'postalCode',
+  isDefault: 'isDefault',
+  userId: 'userId'
+} as const
+
+export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  stock: 'stock',
+  category: 'category',
+  productType: 'productType',
+  bestSeller: 'bestSeller',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const ProductImageScalarFieldEnum = {
+  id: 'id',
+  imageUrl: 'imageUrl',
+  publicId: 'publicId',
+  productId: 'productId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductImageScalarFieldEnum = (typeof ProductImageScalarFieldEnum)[keyof typeof ProductImageScalarFieldEnum]
+
+
+export const ProductSizeScalarFieldEnum = {
+  id: 'id',
+  size: 'size',
+  productId: 'productId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductSizeScalarFieldEnum = (typeof ProductSizeScalarFieldEnum)[keyof typeof ProductSizeScalarFieldEnum]
+
+
+export const ProductColorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value',
+  productId: 'productId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductColorScalarFieldEnum = (typeof ProductColorScalarFieldEnum)[keyof typeof ProductColorScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  orderNumber: 'orderNumber',
+  stripeSessionId: 'stripeSessionId',
+  subtotal: 'subtotal',
+  shipping: 'shipping',
+  tax: 'tax',
+  total: 'total',
+  paymentMethod: 'paymentMethod',
+  paymentStatus: 'paymentStatus',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  addressId: 'addressId'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  price: 'price',
+  size: 'size',
+  color: 'color',
+  orderId: 'orderId',
+  productId: 'productId',
+  createdAt: 'createdAt'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {

@@ -47,6 +47,41 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model Address
+ * 
+ */
+export type Address = Prisma.AddressModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model ProductImage
+ * 
+ */
+export type ProductImage = Prisma.ProductImageModel
+/**
+ * Model ProductSize
+ * 
+ */
+export type ProductSize = Prisma.ProductSizeModel
+/**
+ * Model ProductColor
+ * 
+ */
+export type ProductColor = Prisma.ProductColorModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
  * Model Session
  * 
  */

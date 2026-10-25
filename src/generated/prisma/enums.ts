@@ -9,7 +9,73 @@
 * 🟢 You can import this file directly.
 */
 
+export const Role = {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const Category = {
+  MEN: 'MEN',
+  WOMEN: 'WOMEN',
+  CHILDREN: 'CHILDREN'
+} as const
+
+export type Category = (typeof Category)[keyof typeof Category]
+
+
+export const ProductType = {
+  T_SHIRTS: 'T_SHIRTS',
+  SHIRTS: 'SHIRTS',
+  HOODIES: 'HOODIES',
+  JACKETS: 'JACKETS',
+  JEANS: 'JEANS',
+  TROUSERS: 'TROUSERS',
+  SHORTS: 'SHORTS',
+  SHOES: 'SHOES'
+} as const
+
+export type ProductType = (typeof ProductType)[keyof typeof ProductType]
+
+
+export const Size = {
+  XS: 'XS',
+  S: 'S',
+  M: 'M',
+  L: 'L',
+  XL: 'XL',
+  XXL: 'XXL'
+} as const
+
+export type Size = (typeof Size)[keyof typeof Size]
+
+
+export const PaymentMethod = {
+  STRIPE: 'STRIPE',
+  CASH_ON_DELIVERY: 'CASH_ON_DELIVERY'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
