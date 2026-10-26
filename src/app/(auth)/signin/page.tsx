@@ -3,9 +3,12 @@
 import FrontendLayout from "@/components/layouts/FrontendLayout";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import z from "zod";
 
@@ -19,7 +22,7 @@ type SignInFormValues = z.infer<typeof signinSchema>
 
 
 export default function SignupPage() {
-
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignInFormValues>({
         resolver: zodResolver(signinSchema),
         defaultValues: {
@@ -29,9 +32,20 @@ export default function SignupPage() {
     });
 
     const onSubmit = async (data: SignInFormValues) => {
-        console.log(data);
+        const { error } = await authClient.signIn.email({
+            email: data.email,
+            password: data.password,
+        });
 
-    }
+        if (error) {
+            toast.error(error.message as string);
+            return;
+        }
+
+        toast.success("Login Successful");
+        router.replace("/account");
+
+    };
     return (
         <FrontendLayout>
             <section className="flex min-h-[70vh] items-center justify-center py-16">
