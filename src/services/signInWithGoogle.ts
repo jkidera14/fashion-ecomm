@@ -5,7 +5,7 @@ export const signInWithGoogle = async () => {
     try {
         await authClient.signIn.social({
             provider: "google",
-        })
+        });
 
     } catch (error) {
         toast.error("Google sign-in failed!");
