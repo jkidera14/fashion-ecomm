@@ -1,7 +1,7 @@
-import React from 'react'
 
-export default function layout() {
+
+export default function ProtectedLayout() {
     return (
-        <div>layout</div>
+        <div>ProtectedLayout</div>
     )
 }
