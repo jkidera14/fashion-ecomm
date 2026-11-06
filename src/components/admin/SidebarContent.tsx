@@ -1,3 +1,4 @@
+import { logout } from "@/server-actions/auth/logout";
 import Link from "next/link";
 import { FiBox, FiHome, FiLogOut, FiPackage, FiShoppingBag } from "react-icons/fi";
 import { LuCirclePlus } from "react-icons/lu";
@@ -88,7 +89,7 @@ export default function SidebarContent({ pathname, closeSidebar }: SidebarConten
                     View Shop
                 </Link>
 
-                <button className="flex w-full items-center gap-3 rounded-xl px-4 text-left text-sm font-medium
+                <button onClick={logout} className="flex w-full items-center gap-3 rounded-xl px-4 text-left text-sm font-medium
                                     text-destructive transition hover:bg-destructive/10">
                     <FiLogOut size={18} />
                     Logout
