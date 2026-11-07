@@ -1,3 +1,19 @@
-export async function getProfile() {
+import { prisma } from "@/database/db";
+import { getCurrentUser } from "../auth/getCurrentUser";
 
+export async function getProfile() {
+    try {
+        const currentUser = await getCurrentUser();
+
+        if (!currentUser) {
+            return null;
+        }
+        const user = await prisma.user.findUnique({
+            where: { id: currentUser.id }
+        })
+    } catch (error) {
+        console.error("Failed to Fetch Profile:", error);
+
+        return null;
+    }
 }
