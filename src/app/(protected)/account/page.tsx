@@ -96,21 +96,30 @@ export default async function AccountPage() {
                     </div>
 
                     {/* Address */}
-                    <div className="rounded-2xl border border-border p-6">
-                        <div className="flex items-center gap-3 mb-3">
-                            <FiMapPin className="text-primary" size={22} />
+                    {address ? (
+                        <div className="rounded-2xl border border-border p-6">
+                            <div className="flex items-center gap-3 mb-3">
+                                <FiMapPin className="text-primary" size={22} />
 
-                            <h2 className="text-xl font-semibold">
-                                Shipping Address
-                            </h2>
-                        </div>
+                                <h2 className="text-xl font-semibold">
+                                    Shipping Address
+                                </h2>
+                            </div>
 
-                        <div className="space-y-1">
-                            <p>Muindi Way</p>
-                            <p>Phase 2 Road</p>
-                            <p>Nakuru, Kenya</p>
+                            <div className="space-y-1">
+                                <p>{address.firstName} {address.lastName} </p>
+                                <p>{address.street}</p>
+                                <p>{address.city}, {address.state}</p>
+                                <p>{address.country}</p>
+                                {address.postalCode && <p>{address.postalCode}</p>}
+                                <p>{address.phone}</p>
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <p className="text-muted-foreground">
+                            No shipping address added yet.
+                        </p>
+                    )}
                 </div>
             </section>
         </FrontendLayout>
