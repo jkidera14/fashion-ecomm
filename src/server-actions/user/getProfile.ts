@@ -9,9 +9,20 @@ export async function getProfile() {
             return null;
         }
         const user = await prisma.user.findUnique({
-            where: { id: currentUser.id }
-        })
-    } catch (error) {
+            where: { id: currentUser.id },
+            include: {
+                addresses: {
+                    where: {
+                        isDefault: true,
+                    },
+                    take: 1,
+                },
+            },
+        });
+        return user;
+
+    }
+    catch (error) {
         console.error("Failed to Fetch Profile:", error);
 
         return null;

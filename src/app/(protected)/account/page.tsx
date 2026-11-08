@@ -2,12 +2,21 @@ import FrontendLayout from "@/components/layouts/FrontendLayout";
 import BreadCrumb from "@/components/ui/BreadCrumb";
 import Button from "@/components/ui/Button";
 import { logout } from "@/server-actions/auth/logout";
+import { getProfile } from "@/server-actions/user/getProfile";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import { FiLogOut, FiMapPin, FiPackage, FiUser } from "react-icons/fi";
 
 
-export default function AccountPage() {
+export default async function AccountPage() {
+    const userProfile = await getProfile();
+
+    if (!userProfile) {
+        redirect("/signin");
+    }
+
+    const address = userProfile.addresses[0]
     return (
         <FrontendLayout>
             <section className="mx-auto max-w-5xl py-12">
@@ -35,7 +44,7 @@ export default function AccountPage() {
                                     Full Name
                                 </p>
                                 <p className="font-medium">
-                                    Jane Doe
+                                    {userProfile.name}
                                 </p>
                             </div>
                             <div>
@@ -43,7 +52,7 @@ export default function AccountPage() {
                                     Email
                                 </p>
                                 <p className="font-medium">
-                                    jane@gmail.com
+                                    {userProfile.email}
                                 </p>
                             </div>
                             <div>
@@ -51,7 +60,7 @@ export default function AccountPage() {
                                     Phone
                                 </p>
                                 <p className="font-medium">
-                                    +254 700 000 000
+                                    {userProfile.phone ?? "Not Provided"}
                                 </p>
                             </div>
                             <div>
@@ -59,7 +68,10 @@ export default function AccountPage() {
                                     Member Since
                                 </p>
                                 <p className="font-medium">
-                                    January 2026
+                                    {userProfile.createdAt.toLocaleDateString("en-US", {
+                                        month: "long",
+                                        year: "numeric"
+                                    })}
                                 </p>
                             </div>
                         </div>
