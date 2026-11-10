@@ -26,7 +26,7 @@ export default async function EditProfilePage() {
                     Edit your profile.
                 </p>
 
-                <EditProfileForm />
+                <EditProfileForm userProfile={userProfile} />
             </section>
         </FrontendLayout>
     )
