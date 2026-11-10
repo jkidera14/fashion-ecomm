@@ -1,8 +1,14 @@
-import React from 'react'
+
+import { getProfile } from '@/server-actions/user/getProfile'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 
-export default function EditProfileForm() {
+interface EditProfileFormProps {
+    userProfile: Awaited<ReturnType<typeof getProfile>>
+}
+
+
+export default function EditProfileForm({ userProfile }: EditProfileFormProps) {
     return (
         <form className="mt-10 space-y-8">
             {/* Personal Information */}
