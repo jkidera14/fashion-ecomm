@@ -1,7 +1,10 @@
+"use server"
+
 import { prisma } from "@/database/db";
 import { getCurrentUser } from "../auth/getCurrentUser";
 
-export async function getProfile() {
+export async function
+    getProfile() {
     try {
         const currentUser = await getCurrentUser();
 

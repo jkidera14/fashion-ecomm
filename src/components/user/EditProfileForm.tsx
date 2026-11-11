@@ -1,4 +1,4 @@
-
+"use client"
 import { getProfile } from '@/server-actions/user/getProfile'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
@@ -43,12 +43,21 @@ export const editProfileSchema = z.object({
 type EditProfileFormValues = z.infer<typeof editProfileSchema>
 
 export default function EditProfileForm({ userProfile }: EditProfileFormProps) {
-    const { } = useForm<EditProfileFormValues>({
+    const address = userProfile?.addresses[0]
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EditProfileFormValues>({
         resolver: zodResolver(editProfileSchema),
         defaultValues: {
             name: userProfile?.name ?? "",
             phone: userProfile?.phone ?? "",
             email: userProfile?.email ?? "",
+
+            country: address?.country ?? "",
+            firstname: address?.firstName ?? "",
+            lastname: address?.lastName ?? "",
+            city: address?.city ?? "",
+            state: address?.state ?? "",
+            postalCode: address?.postalCode ?? "",
+            street: address?.street ?? "",
         }
     })
     return (
@@ -59,10 +68,10 @@ export default function EditProfileForm({ userProfile }: EditProfileFormProps) {
                     Personal Information
                 </h2>
                 <div className="mt-6 grid gap-5 md:grid-cols-2">
-                    <Input label="Full Name" placeholder="John Doe" />
-                    <Input label="Phone Number" placeholder="812 212 6789" />
+                    <Input {...register("name")} label="Full Name" placeholder="John Doe" />
+                    <Input {...register("phone")} label="Phone Number" placeholder="812 212 6789" />
                     <div className="md:col-span-2">
-                        <Input label="Email Address" placeholder="Jane@gmail.com" />
+                        <Input {...register("email")} label="Email Address" placeholder="Jane@gmail.com" />
                     </div>
                 </div>
             </div>
@@ -73,12 +82,12 @@ export default function EditProfileForm({ userProfile }: EditProfileFormProps) {
                 </h2>
 
                 <div className="mt-6 grid gap-5 md:grid-cols-2">
-                    <Input label="Country" />
-                    <Input label="State" />
-                    <Input label="City" />
-                    <Input label="Postal Code" />
+                    <Input label="Country" {...register("country")} />
+                    <Input label="State" {...register("state")} />
+                    <Input label="City" {...register("city")} />
+                    <Input label="Postal Code" {...register("postalCode")} />
                     <div className="md:col-span-2">
-                        <Input variant="textarea" label="Street Address" />
+                        <Input variant="textarea" label="Street Address" {...register("street")} />
                     </div>
                 </div>
             </div>
