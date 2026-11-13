@@ -21,3 +21,4 @@ export async function requireAdmin() {
         redirect("/account");
     }
 }
+//Okay

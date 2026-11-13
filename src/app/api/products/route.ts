@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
         const images = formData.getAll("images") as File[];
 
-        // Upload The Images
+        // Upload Images
 
 
     } catch (error) {
