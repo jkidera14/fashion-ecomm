@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { Category, ProductType, Size } from "@/generated/prisma/enums";
 import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FiX } from "react-icons/fi";
 import { LuPlus } from "react-icons/lu";
 
@@ -44,8 +45,26 @@ const availableColors = [
     { name: "Red", value: "#DC2626" },
 ];
 
+type ProductFormValues = {
+    name: string;
+    description: string;
+    price: number;
+    stock: number;
+    category: Category;
+    productType: ProductType;
+}
 
 export default function AddProductPage() {
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm<ProductFormValues>({
+        defaultValues: {
+            name: "",
+            description: "",
+            price: 0,
+            stock: 0,
+            category: "MEN",
+            productType: "SHIRTS"
+        }
+    })
     const [images, setImages] = useState<File[]>([]);
     const [sizes, setSizes] = useState<string[]>([]);
     const [colors, setColors] = useState<string[]>([]);
