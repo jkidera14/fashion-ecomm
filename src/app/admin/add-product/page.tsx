@@ -2,11 +2,36 @@
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { Category, ProductType, Size } from "@/generated/prisma/enums";
 import { useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { LuPlus } from "react-icons/lu";
 
-const availableSizes = ["S", "M", "L", "XL", "XXL"];
+const availableSizes: Size[] = [
+    Size.XS,
+    Size.S,
+    Size.M,
+    Size.L,
+    Size.XL,
+    Size.XXL
+];
+
+const productTypes: ProductType[] = [
+    ProductType.HOODIES,
+    ProductType.JACKETS,
+    ProductType.JEANS,
+    ProductType.SHIRTS,
+    ProductType.SHORTS,
+    ProductType.TROUSERS,
+    ProductType.T_SHIRTS,
+    ProductType.SHOES
+];
+
+const categories: Category[] = [
+    Category.MEN,
+    Category.WOMEN,
+    Category.CHILDREN
+];
 
 const availableColors = [
     { name: "Black", value: "#000000" },
@@ -123,9 +148,9 @@ export default function AddProductPage() {
                         </label>
                         <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
                         transition focus:border-primary">
-                            <option>Men</option>
-                            <option>Women</option>
-                            <option>Children</option>
+                            {categories.map((category) => (
+                                <option key={category} value={category}>{category}</option>
+                            ))}
                         </select>
                     </div>
                     <div>
@@ -134,12 +159,9 @@ export default function AddProductPage() {
                         </label>
                         <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
                         transition focus:border-primary">
-                            <option>T-Shirts</option>
-                            <option>Hoodies</option>
-                            <option>Jackets</option>
-                            <option>Jeans</option>
-                            <option>Shorts</option>
-                            <option>Shoes</option>
+                            {productTypes.map((productType) => (
+                                <option key={productType} value={productType}>{productType}</option>
+                            ))}
                         </select>
                     </div>
                 </div>
