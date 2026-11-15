@@ -5,6 +5,7 @@ import Input from "@/components/ui/Input";
 import { Category, ProductType, Size } from "@/generated/prisma/enums";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FiX } from "react-icons/fi";
 import { LuPlus } from "react-icons/lu";
 
@@ -95,8 +96,42 @@ export default function AddProductPage() {
         );
     };
 
+    const handleCreateProduct = async (data: ProductFormValues) => {
+        if (images.length === 0) {
+            return toast.error("Please Upload AtLeast One Image.");
+        }
+
+        if (sizes.length === 0) {
+            return toast.error("Please Select AtLeast One Size.");
+        }
+
+        if (colors.length === 0) {
+            return toast.error("Please Select AtLeast One Color.");
+        }
+
+        const selectedColors = availableColors.filter((color) => colors.includes(color.name));
+
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+        formData.append("description", data.description);
+        formData.append("price", data.price.toString());
+        formData.append("stock", data.stock.toString());
+        formData.append("productType", data.productType);
+        formData.append("category", data.category);
+        formData.append("bestSeller", String(bestSeller));
+
+        sizes.forEach((size) => {
+            formData.append("sizes", size)
+        });
+        colors.forEach((color) => {
+            formData.append("colors", color)
+        });
+
+    };
+
     return (
-        <div className="mx-auto max-w-5xl space-y-8">
+        <form onClick={handleSubmit(handleCreateProduct)} className="mx-auto max-w-5xl space-y-8">
             {/* header */}
             <div>
                 <h2 className="text-3xl font-semibold">
@@ -152,12 +187,16 @@ export default function AddProductPage() {
                 <h2 className="text-lg font-semibold">
                     Product Information
                 </h2>
-                <Input label="Product Name" placeholder="Classic Black Hoodie" />
-                <Input label="Product Description" placeholder="Write a detailed description........" />
+                <Input label="Product Name" {...register("name")} placeholder="Classic Black Hoodie" />
+                <Input
+                    {...register("description")}
+                    label="Product Description"
+                    placeholder="Write a detailed description........"
+                />
 
                 <div className="grid gap-5 md:grid-cols-3">
-                    <Input label="Price" placeholder="$79.99" />
-                    <Input label="Stock Quantity" placeholder="50" />
+                    <Input {...register("price")} label="Price" placeholder="$79.99" />
+                    <Input {...register("stock")} label="Stock Quantity" placeholder="50" />
                 </div>
 
                 <div className="gris gap-5 md:grid-cols-2">
@@ -165,7 +204,7 @@ export default function AddProductPage() {
                         <label className="mb-2 block text-sm font-medium">
                             Category
                         </label>
-                        <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
+                        <select {...register("category")} className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
                         transition focus:border-primary">
                             {categories.map((category) => (
                                 <option key={category} value={category}>{category}</option>
@@ -176,7 +215,7 @@ export default function AddProductPage() {
                         <label className="mb-2 block text-sm font-medium">
                             Product Type
                         </label>
-                        <select className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
+                        <select {...register("productType")} className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none
                         transition focus:border-primary">
                             {productTypes.map((productType) => (
                                 <option key={productType} value={productType}>{productType}</option>
@@ -251,6 +290,6 @@ export default function AddProductPage() {
                     Save Product
                 </Button>
             </div>
-        </div>
-    )
+        </form>
+    );
 }
