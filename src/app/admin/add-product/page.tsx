@@ -3,6 +3,7 @@
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { Category, ProductType, Size } from "@/generated/prisma/enums";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -56,7 +57,14 @@ type ProductFormValues = {
 }
 
 export default function AddProductPage() {
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm<ProductFormValues>({
+    const router = useRouter();
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { isSubmitting },
+    } = useForm<ProductFormValues>({
         defaultValues: {
             name: "",
             description: "",
@@ -124,14 +132,41 @@ export default function AddProductPage() {
         sizes.forEach((size) => {
             formData.append("sizes", size)
         });
-        colors.forEach((color) => {
-            formData.append("colors", color)
+
+        selectedColors.forEach((color) => {
+            formData.append("colors", JSON.stringify(color))
         });
+
+        images.forEach((image) => {
+            formData.append("images", image)
+        });
+
+        try {
+            const response = await fetch("/api/products", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                return toast.error(result.message)
+            }
+
+            toast.success(result.message);
+            reset();
+            router.push("/admin/products");
+
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Something Went Wrong!");
+
+        }
 
     };
 
     return (
-        <form onClick={handleSubmit(handleCreateProduct)} className="mx-auto max-w-5xl space-y-8">
+        <form onSubmit={handleSubmit(handleCreateProduct)} className="mx-auto max-w-5xl space-y-8">
             {/* header */}
             <div>
                 <h2 className="text-3xl font-semibold">
@@ -154,14 +189,18 @@ export default function AddProductPage() {
                             {images[index] ? (
                                 <div className="relative aspect-square overflow-hidden rounded-xl border border-border">
                                     <img src={URL.createObjectURL(images[index])} alt="selectedimage" className="w-full h-full object-cover" />
-
-                                    <button onClick={() => removeImage(index)} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center
+                                    <button
+                                        type="button"
+                                        onClick={() => removeImage(index)} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center
                                                         rounded-full bg-background shadow transition hover:bg-destructive hover:text-white">
                                         <FiX />
                                     </button>
                                 </div>
                             ) : (
-                                <button onClick={() => inputRef.current?.click()} className="flex aspect-square w-full flex-col items-center justify-center rounded-xl
+                                <button
+                                    type="button"
+                                    onClick={() => inputRef.current?.click()}
+                                    className="flex aspect-square w-full flex-col items-center justify-center rounded-xl
                               border-2 border-dashed border-border transition hover:border-primary hover:bg-surface">
                                     <LuPlus size={30} className="text-muted-foreground" />
 
@@ -189,6 +228,7 @@ export default function AddProductPage() {
                 </h2>
                 <Input label="Product Name" {...register("name")} placeholder="Classic Black Hoodie" />
                 <Input
+                    variant="textarea"
                     {...register("description")}
                     label="Product Description"
                     placeholder="Write a detailed description........"
@@ -286,8 +326,8 @@ export default function AddProductPage() {
             </section>
 
             <div className="flex justify-end">
-                <Button>
-                    Save Product
+                <Button disabled={isSubmitting}>
+                    {isSubmitting ? "Saving Product..." : "Save Product"}
                 </Button>
             </div>
         </form>
