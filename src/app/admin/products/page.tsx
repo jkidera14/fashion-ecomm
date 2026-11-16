@@ -1,51 +1,15 @@
 import Button from "@/components/ui/Button";
+import { getProducts } from "@/server-actions/product/getProducts";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrashAlt } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { tr } from "zod/locales";
 
-const products = [
-    {
-        id: 1,
-        name: "Classic Denim Jacket",
-        category: "Jackets",
-        price: 79.99,
-        stock: 18,
-        status: "Active",
-        image: "/images/product1.png",
-    },
-    {
-        id: 2,
-        name: "Premium Hoodie",
-        category: "Hoodies",
-        price: 59.99,
-        stock: 8,
-        status: "Active",
-        image: "/images/product2.png",
-    },
-    {
-        id: 3,
-        name: "Oversized T-Shirt",
-        category: "T-Shirts",
-        price: 34.99,
-        stock: 0,
-        status: "Out of Stock",
-        image: "/images/product3.png",
+export const dynamic = "force-dynamic";
 
-    },
-    {
-        id: 4,
-        name: "Leather Sneakers",
-        category: "Shoes",
-        price: 99.99,
-        stock: 25,
-        status: "Active",
-        image: "/images/product4.png",
-    },
-];
-
-export default function ProductsPage() {
+export default async function ProductsPage() {
+    const products = await getProducts();
     return (
         <section>
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
@@ -97,7 +61,7 @@ export default function ProductsPage() {
                                     <tr key={product.id} className="border-b border-border last:border-0 hover:bg-surface/50">
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-4">
-                                                <Image src={product.image} alt={product.name} width={60} height={70} className="rounded-lg object-cover" />
+                                                <Image src={product.images[0].imageUrl} alt={product.name} width={60} height={70} className="rounded-lg object-cover" />
 
                                                 <p className="font-medium">
                                                     {product.name}
