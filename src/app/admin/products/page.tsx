@@ -1,3 +1,4 @@
+import DeleteProductButton from "@/components/admin/DeleteProductButton";
 import Button from "@/components/ui/Button";
 import { getProducts } from "@/server-actions/product/getProducts";
 import Image from "next/image";
@@ -85,8 +86,7 @@ export default async function ProductsPage() {
                                             </span>
                                         </td>
                                         <td className="px-6 py-5">
-                                            <FaTrashAlt
-                                                className="text-destructive" />
+                                            <DeleteProductButton productId={product.id} />
                                         </td>
                                     </tr>
                                 ))}
