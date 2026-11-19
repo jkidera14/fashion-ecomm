@@ -15,7 +15,12 @@ export async function getLatestProducts() {
             orderBy: {
                 createdAt: "desc",
             }
-        })
+        });
+
+        return products.flatMap((product) => ({
+            ...product,
+            price: Number(product.price),
+        }))
 
     } catch (error) {
         console.error("Failed to Fetch Latest products:", error);
