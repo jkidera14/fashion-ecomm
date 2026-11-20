@@ -1,9 +1,10 @@
-import { dummyLatestCollections } from "@/constants/dummyProducts";
 import SectionHeader from "../ui/SectionHeader";
 import ProductCard from "../products/ProductCard";
 import { Suspense } from "react";
 import { getLatestProducts } from "@/server-actions/product/getLatestProducts";
+import ProductCardSkeleton from "../loading/skeletons/ProductCardSkeleton";
 
+export const dynamic = "force-dynamic";
 
 export default function LatestCollections() {
     return (
@@ -13,7 +14,7 @@ export default function LatestCollections() {
                 subtitle="Discover our Newest Weekly Arrivals and Exclusive Designs."
             />
 
-            <Suspense fallback={<p>Loading....</p>}>
+            <Suspense fallback={<ProductCardSkeleton number={5} />}>
                 <LatestCollectionsContent />
             </Suspense>
         </section>

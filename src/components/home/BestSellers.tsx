@@ -1,6 +1,8 @@
-import { dummyBestSellers } from "@/constants/dummyProducts";
 import SectionHeader from "../ui/SectionHeader";
 import ProductCard from "../products/ProductCard";
+import { Suspense } from "react";
+import { getBestSellerProducts } from "@/server-actions/product/getBestSellerProducts";
+import ProductCardSkeleton from "../loading/skeletons/ProductCardSkeleton";
 
 
 
@@ -13,16 +15,28 @@ export default function BestSellers() {
                     by Thousands of happy customers. Timeless styles designed to 
                     elevate your wardrobe and make a statement."
             />
-            <div className="my-10">
-                <div className="grid grid-cols-2 gap-6 md:grid-cols-3 
-                                    lg:grid-cols-4 xl:grid-cols-5">
-                    {dummyBestSellers.map((product) => (
-                        <ProductCard product={product} key={product.id} />
-                    ))}
-
-
-                </div>
-            </div>
+            <Suspense fallback={<ProductCardSkeleton number={5} />}>
+                <BestSellersContent />
+            </Suspense>
         </section>
+    )
+}
+async function BestSellersContent() {
+    const products = await getBestSellerProducts();
+    return (
+        <div className="my-10">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3 
+                                    lg:grid-cols-4 xl:grid-cols-5">
+                {products.map((product) => (
+                    <ProductCard product={{
+                        id: product.id,
+                        name: product.name,
+                        image: product.images[0].imageUrl,
+                        price: product.price,
+                    }} key={product.id} />
+                ))}
+
+            </div>
+        </div>
     )
 }

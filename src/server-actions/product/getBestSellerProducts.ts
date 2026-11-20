@@ -1,0 +1,37 @@
+import { prisma } from "@/database/db";
+
+export async function getBestSellerProducts() {
+    try {
+        const products = await prisma.product.findMany({
+            where: {
+                bestSeller: true
+            },
+            take: 10,
+
+            include: {
+                images: {
+                    take: 1,
+                    orderBy: {
+                        createdAt: "asc"
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: "desc"
+            }
+        });
+
+        return products.map((product) => ({
+            ...product,
+            price: Number(product.price),
+        }));
+
+    } catch (error) {
+        console.error(
+            "Failed to Fetch Best Seller products:",
+            error
+        );
+
+        return [];
+    }
+}
