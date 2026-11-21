@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { getBestSellerProducts } from "@/server-actions/product/getBestSellerProducts";
 import ProductCardSkeleton from "../loading/skeletons/ProductCardSkeleton";
 
-
+export const dynamic = "force-dynamic";
 
 export default function BestSellers() {
     return (
