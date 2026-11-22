@@ -1,11 +1,21 @@
-import { dummyShopProducts } from "@/constants/dummyProducts";
 import FrontendLayout from "@/components/layouts/FrontendLayout";
-import ProductCard from "@/components/products/ProductCard";
 import FilterOptions from "@/components/shop/FilterOptions";
+import { Category, ProductType } from "@/generated/prisma/enums";
+import { Suspense } from "react";
+import ShopProducts from "@/components/shop/ShopProducts";
+
+interface ShopPageProps {
+    searchParams: Promise<{
+        category?: Category;
+        productTypes?: ProductType;
+        sort?: "low-high" | "high-low" | "newest" | "oldest";
+    }>
+}
 
 
 
-export default function page() {
+export default async function page({ searchParams }: ShopPageProps) {
+    const params = await searchParams
     return (
         <FrontendLayout>
             <div className="flex flex-col sm:flex-row gap-5 my-10">
@@ -21,12 +31,9 @@ export default function page() {
                         </select>
                     </div>
 
-
-                    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-                        {dummyShopProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div>
+                    <Suspense>
+                        <ShopProducts />
+                    </Suspense>
                 </div>
             </div>
         </FrontendLayout>

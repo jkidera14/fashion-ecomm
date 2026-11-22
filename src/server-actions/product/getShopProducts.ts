@@ -25,6 +25,7 @@ export async function getShopProducts({ categories = [], productTypes = [], sort
                     }
                 })
             },
+            
             include: {
                 images: {
                     take: 1,
