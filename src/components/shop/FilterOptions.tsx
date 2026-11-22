@@ -1,10 +1,53 @@
 "use client"
 
+import { Category, ProductType } from "@/generated/prisma/enums";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
 
+interface ProductTypeFilterComponent {
+    label: string,
+    value: ProductType
+}
+
+interface CategoryTypeFilterComponent {
+    label: string,
+    value: Category
+}
+
+const productTypes: ProductTypeFilterComponent[] = [
+    { label: "T-Shirts", value: ProductType.T_SHIRTS },
+    { label: "Shirts", value: ProductType.SHIRTS },
+    { label: "Hoodies", value: ProductType.HOODIES },
+    { label: "Jackets", value: ProductType.JACKETS },
+    { label: "Jeans", value: ProductType.JEANS },
+    { label: "Trousers", value: ProductType.TROUSERS },
+    { label: "Shorts", value: ProductType.SHORTS },
+    { label: "Shoes", value: ProductType.SHOES },
+
+]
+
+const categories: CategoryTypeFilterComponent[] = [
+    { label: "Men", value: Category.MEN },
+    { label: "Women", value: Category.WOMEN },
+    { label: "Children", value: Category.CHILDREN }
+]
+
 export default function FilterOptions() {
     const [showFilter, setShowFilter] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const selectedCategories = searchParams.get("category")?.split(",").filter(Boolean) ?? []
+    const selectedTypes = searchParams.get("productType")?.split(",").filter(Boolean) ?? []
+
+    const toggleFilter = (key: "category" | "productType", value: string) => {
+        const params = new URLSearchParams(searchParams.toString())
+
+        const values = params.get(key)?.split(",").filter(Boolean) ?? [];
+
+        const updatedValues = values.includes(value)
+    }
+
     return (
         <aside className="w-full sm:min-w-60 sm:max-w-60">
             <button onClick={() => setShowFilter((prev) => !prev)} className="mb-4 flex items-center gap-2 text-xl
@@ -25,18 +68,13 @@ export default function FilterOptions() {
                     </h3>
 
                     <div className="space-y-3 text-sm text-muted-foreground">
-                        <label className="flex items-center gap-3">
-                            <input type="checkbox" />
-                            <span>Men</span>
-                        </label>
-                        <label className="flex items-center gap-3">
-                            <input type="checkbox" />
-                            <span>Women</span>
-                        </label>
-                        <label className="flex items-center gap-3">
-                            <input type="checkbox" />
-                            <span>Children</span>
-                        </label>
+                        {categories.map((category) => (
+                            <label key={category.value} className="flex items-center gap-3">
+                                <input type="checkbox" />
+                                <span>{category.label}</span>
+                            </label>
+                        ))}
+
                     </div>
                 </div>
 
@@ -47,18 +85,13 @@ export default function FilterOptions() {
                     </h3>
 
                     <div className="space-y-3 text-sm text-muted-foreground">
-                        <label className="flex items-center gap-3">
-                            <input type="checkbox" />
-                            <span>Trousers</span>
-                        </label>
-                        <label className="flex items-center gap-3">
-                            <input type="checkbox" />
-                            <span>Shirts</span>
-                        </label>
-                        <label className="flex items-center gap-3">
-                            <input type="checkbox" />
-                            <span>Hoodies</span>
-                        </label>
+                        {productTypes.map((type) => (
+                            <label key={type.value} className="flex items-center gap-3">
+                                <input type="checkbox" />
+                                <span>{type.label}</span>
+                            </label>
+
+                        ))}
 
                     </div>
                 </div>
