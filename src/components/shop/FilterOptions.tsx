@@ -45,8 +45,17 @@ export default function FilterOptions() {
 
         const values = params.get(key)?.split(",").filter(Boolean) ?? [];
 
-        const updatedValues = values.includes(value)
-    }
+        const updatedValues = values.includes(value) ? values.filter((v) =>
+            v !== value) : [...values, value]
+
+        if (updatedValues.length === 0) {
+            params.delete(key);
+
+        } else {
+            params.set(key, updatedValues.join(","))
+        }
+        router.replace(`/shop?${params.toString()}`);
+    };
 
     return (
         <aside className="w-full sm:min-w-60 sm:max-w-60">
@@ -70,7 +79,7 @@ export default function FilterOptions() {
                     <div className="space-y-3 text-sm text-muted-foreground">
                         {categories.map((category) => (
                             <label key={category.value} className="flex items-center gap-3">
-                                <input type="checkbox" />
+                                <input checked={selectedCategories.includes(category.value)} onChange={() => toggleFilter("category", category.value)} type="checkbox" />
                                 <span>{category.label}</span>
                             </label>
                         ))}
@@ -87,7 +96,9 @@ export default function FilterOptions() {
                     <div className="space-y-3 text-sm text-muted-foreground">
                         {productTypes.map((type) => (
                             <label key={type.value} className="flex items-center gap-3">
-                                <input type="checkbox" />
+                                <input checked={selectedTypes.includes(type.value)}
+                                    type="checkbox" onChange={() => toggleFilter
+                                        ("productType", type.value)} />
                                 <span>{type.label}</span>
                             </label>
 
