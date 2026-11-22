@@ -1,5 +1,7 @@
 import { Category, ProductType } from "@/generated/prisma/enums";
 import { getShopProducts } from "@/server-actions/product/getShopProducts";
+import EmptyState from "../ui/EmptyState";
+import ProductCard from "../products/ProductCard";
 
 interface ShopProducts {
     searchParams: {
@@ -17,14 +19,27 @@ export default async function ShopProducts({ searchParams }: ShopProducts) {
     });
 
     if (products.length === 0) {
-
+        return (
+            <EmptyState title="No Products Found" subTitle="Try changing your filters or check back later" />
+        )
     }
 
     return (
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-            {dummyShopProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-            ))}
-        </div>
+        <>
+            <p className="mb-6 text-sm text-muted-foreground">
+                Showing {products.length} product{products.length !== 1 && "s"}
+            </p>
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+                {products.map((product) => (
+                    <ProductCard key={product.id} product={{
+                        id: product.id,
+                        name: product.name,
+                        image: product.images[0].imageUrl,
+                        price: product.price,
+                    }} />
+                ))}
+            </div>
+
+        </>
     )
 }

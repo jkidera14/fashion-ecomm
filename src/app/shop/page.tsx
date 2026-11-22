@@ -32,7 +32,7 @@ export default async function page({ searchParams }: ShopPageProps) {
                     </div>
 
                     <Suspense>
-                        <ShopProducts />
+                        <ShopProducts searchParams={params} />
                     </Suspense>
                 </div>
             </div>
