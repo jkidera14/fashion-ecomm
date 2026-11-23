@@ -112,9 +112,12 @@ export default function ProductPageComponent() {
 
                             <div className="flex gap-3">
                                 {colors.map((color) => (
-                                    <button key={color.name} title={color.name} onClick={() => setSelectedColor(color)} className={`
+                                    <button
+                                        key={color.name}
+                                        title={color.name}
+                                        onClick={() => setSelectedColor(color)} className={`
                                 flex h-11 w-11 items-center justify-center rounded-full border transition ${selectedColor.name === color.name
-                                            ? "border-primary ring-2 ring-primary ring-offset-2" : "border-border"}`}>
+                                                ? "border-primary ring-2 ring-primary ring-offset-2" : "border-border"}`}>
 
                                         <span className="h-8 w-8 rounded-full"
                                             style={{

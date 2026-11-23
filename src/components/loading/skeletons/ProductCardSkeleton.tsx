@@ -9,7 +9,8 @@ export default function ProductCardSkeleton({ number, shop }: ProductCardSkeleto
             {Array.from({ length: number }).map((_, index) => (
                 <div
                     key={index}
-                    className="animate-pulse overflow-hidden rounded-2xl border border-border"
+                    className="animate-pulse overflow-hidden rounded-2xl border
+                    border-border"
                 >
                     <div className="aspect-4/5 bg-surface" />
                     <div className="space-y-3 p-4">

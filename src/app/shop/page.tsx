@@ -4,6 +4,7 @@ import { Category, ProductType } from "@/generated/prisma/enums";
 import { Suspense } from "react";
 import ShopProducts from "@/components/shop/ShopProducts";
 import SortOptions from "@/components/shop/SortOptions";
+import ProductCardSkeleton from "@/components/loading/skeletons/ProductCardSkeleton";
 
 interface ShopPageProps {
     searchParams: Promise<{
@@ -24,7 +25,7 @@ export default async function page({ searchParams }: ShopPageProps) {
                 <div className="flex-1">
 
                     <SortOptions />
-                    <Suspense>
+                    <Suspense fallback={<ProductCardSkeleton number={8} shop={true} />}>
                         <ShopProducts searchParams={params} />
                     </Suspense>
                 </div>
