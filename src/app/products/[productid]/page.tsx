@@ -1,11 +1,31 @@
-import FrontendLayout from '@/components/layouts/FrontendLayout'
-import ProductPageComponent from '@/components/products/ProductPageComponent'
-import React from 'react'
+import FrontendLayout from '@/components/layouts/FrontendLayout';
+import ProductPageComponent from '@/components/products/ProductPageComponent';
+import { getProduct } from '@/server-actions/product/getProduct';
+import { notFound } from 'next/navigation';
+import React, { Suspense } from 'react';
 
-export default function ProductPage() {
+interface ProductPageProps {
+    params: Promise<{
+        productId: string
+    }>
+}
+
+export default async function ProductPage({ params }: ProductPageProps) {
+
+    const { productId } = await params;
     return (
         <FrontendLayout>
-            <ProductPageComponent />
+            <Suspense fallback={<p>Loading...</p>}>
+                <ProductContent productId={productId} />
+            </Suspense>
         </FrontendLayout>
     )
+}
+async function ProductContent({ productId }: { productId: string }) {
+    const product = await getProduct(productId);
+
+    if (!product) {
+        notFound();
+    }
+    return <ProductPageComponent product={product} />
 }
