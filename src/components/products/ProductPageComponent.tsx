@@ -63,7 +63,12 @@ export default function ProductPageComponent({ product }: ProductPageComponentPr
                     </h2>
 
                     <p className="mt-6 text-2xl font-bold sm:text-3xl">
-                        $79.99
+                        {product?.price.toFixed(2)}
+                    </p>
+
+                    <p className={`mt-2 font-medium ${isOutOfStock ?
+                        "text-red-600" : "text-green-600"}`}>
+                        {isOutOfStock ? "Out of Stock" : `In Stock (${product?.stock} available)`}
                     </p>
 
                     <p className="mt-6 leading-8 text-muted-foreground">

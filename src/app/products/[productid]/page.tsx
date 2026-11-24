@@ -6,17 +6,17 @@ import React, { Suspense } from 'react';
 
 interface ProductPageProps {
     params: Promise<{
-        productId: string
+        productid: string
     }>
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
 
-    const { productId } = await params;
+    const { productid } = await params;
     return (
         <FrontendLayout>
             <Suspense fallback={<p>Loading...</p>}>
-                <ProductContent productId={productId} />
+                <ProductContent productId={productid} />
             </Suspense>
         </FrontendLayout>
     )
@@ -29,3 +29,6 @@ async function ProductContent({ productId }: { productId: string }) {
     }
     return <ProductPageComponent product={product} />
 }
+
+
+

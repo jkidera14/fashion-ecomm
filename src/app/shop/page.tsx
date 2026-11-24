@@ -23,8 +23,8 @@ export default async function page({ searchParams }: ShopPageProps) {
             <div className="flex flex-col sm:flex-row gap-5 my-10">
                 <FilterOptions />
                 <div className="flex-1">
-
                     <SortOptions />
+
                     <Suspense fallback={<ProductCardSkeleton number={8} shop={true} />}>
                         <ShopProducts searchParams={params} />
                     </Suspense>
