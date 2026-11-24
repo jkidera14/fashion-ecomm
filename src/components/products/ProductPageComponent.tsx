@@ -32,7 +32,7 @@ export default function ProductPageComponent({ product }: ProductPageComponentPr
                     href: "/shop"
                 },
                 {
-                    label: "Product name"
+                    label: product?.name ?? ""
                 }
             ]} />
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">

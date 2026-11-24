@@ -1,4 +1,5 @@
 import FrontendLayout from '@/components/layouts/FrontendLayout';
+import ProductPageSkeleton from '@/components/loading/skeletons/ProductPageSkeleton';
 import ProductPageComponent from '@/components/products/ProductPageComponent';
 import { getProduct } from '@/server-actions/product/getProduct';
 import { notFound } from 'next/navigation';
@@ -15,7 +16,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     const { productid } = await params;
     return (
         <FrontendLayout>
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<ProductPageSkeleton />}>
                 <ProductContent productId={productid} />
             </Suspense>
         </FrontendLayout>
