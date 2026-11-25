@@ -6,6 +6,8 @@ import BreadCrumb from "../ui/BreadCrumb";
 import Button from "../ui/Button";
 import { IoBagAddOutline } from "react-icons/io5";
 import { getProduct } from "@/server-actions/product/getProduct";
+import { useCartStore } from "@/store/cart-store";
+import toast from "react-hot-toast";
 
 interface ProductPageComponentProps {
     product: Awaited<ReturnType<typeof getProduct>>
@@ -14,11 +16,36 @@ interface ProductPageComponentProps {
 
 
 export default function ProductPageComponent({ product }: ProductPageComponentProps) {
+
+    const { addToCart } = useCartStore();
+
     const [selectedImage, setSelectedImage] = useState(product?.images[0].imageUrl ?? "");
     const [selectedSize, setSelectedSize] = useState(product?.sizes[0].size ?? "");
     const [selectedColor, setSelectedColor] = useState(product?.colors[0] ?? null);
 
-    const isOutOfStock = (product?.stock ?? 0) <= 0
+    const isOutOfStock = (product?.stock ?? 0) <= 0;
+
+    const handleAddToCart = () => {
+        if ((product?.stock ?? 0) < 0) {
+            return toast.error("This PRoduct is out of Stock.");
+        }
+        if (!product || !selectedColor || !selectedImage || !selectedSize) {
+            return toast.error("Please select a size and color.");
+        }
+
+        const cartKey = `${product.id}-${selectedSize}-${selectedColor.id}`;
+
+        addToCart({
+            cartKey,
+            productId: product.id,
+            name: product.name,
+            image: product.images[0].imageUrl ?? "",
+            price: product.price,
+            quantity: 1,
+            size: selectedSize,
+            color: selectedColor.name
+        });
+    }
 
     return (
         <section className="py-12">
