@@ -45,6 +45,8 @@ export default function ProductPageComponent({ product }: ProductPageComponentPr
             size: selectedSize,
             color: selectedColor.name
         });
+
+        toast.success("Product added to cart");
     }
 
     return (
@@ -162,7 +164,12 @@ export default function ProductPageComponent({ product }: ProductPageComponentPr
                         </div>
 
                         <div className="mt-8">
-                            <Button className="w-full sm:w-fit" leftIcon={<IoBagAddOutline size={20} />} paddingX="px-20">
+                            <Button
+                                onClick={handleAddToCart}
+                                disabled={isOutOfStock}
+                                className="w-full sm:w-fit"
+                                leftIcon={<IoBagAddOutline size={20} />}
+                                paddingX="px-20">
                                 Add to Cart
                             </Button>
                         </div>

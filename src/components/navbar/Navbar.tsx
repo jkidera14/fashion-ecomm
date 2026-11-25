@@ -8,6 +8,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FiMenu, FiX } from "react-icons/fi";
 import { IoBagOutline, IoSearch } from "react-icons/io5";
 import { useSearchStore } from "@/store/search-store";
+import CartCount from "./CartCount";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -57,13 +58,16 @@ export default function Navbar() {
                             <FaRegUser size={22} />
                         </button>
                         {/* cart badge */}
-                        <button onClick={() => router.push("/cart")} className="rounded-full p-2 text-foreground 
+                        <button
+                            onClick={() => router.push("/cart")}
+                            className="relative rounded-full p-2 text-foreground 
                         transition-colors hover:bg-surface">
                             <CiShoppingCart size={30} />
+
+                            <CartCount />
                         </button>
-
-
                     </div>
+
                     {/* mobile menu button */}
                     <button onClick={() => setIsOpen(!isOpen)} className="text-2xl text-foreground md:hidden">
                         {isOpen ? <FiX /> : <FiMenu />}
