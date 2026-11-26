@@ -10,6 +10,14 @@ import Button from "../ui/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getProfile } from "@/server-actions/user/getProfile";
+import { useForm } from "react-hook-form";
+
+
+interface CheckoutPageComponentProps {
+    user: Awaited<ReturnType<typeof getProfile>>
+}
 
 
 const checkoutSchema = z.object({
@@ -40,7 +48,7 @@ const checkoutSchema = z.object({
         .min(2, "Street address is required."),
 });
 
-type CheckFormValues = z.infer<typeof checkoutSchema>;
+type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
 const orderItems = [
     {
@@ -65,7 +73,25 @@ const shipping = 0;
 const tax = subtotal * 0.08;
 const total = subtotal + shipping + tax;
 
-export default function CheckoutPageComponent() {
+export default function CheckoutPageComponent({ user }: CheckoutPageComponentProps) {
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm<CheckoutFormValues>({
+        resolver: zodResolver(checkoutSchema),
+        defaultValues: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            state: "",
+            city: "",
+            address: "",
+        }
+    })
+
     const router = useRouter();
     const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">("cod")
     return (
