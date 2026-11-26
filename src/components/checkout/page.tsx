@@ -45,7 +45,11 @@ const checkoutSchema = z.object({
 
     address: z
         .string()
-        .min(2, "Street address is required."),
+        .min(5, "Street address is required."),
+
+    country: z
+        .string()
+        .min(2, "Country is Required."),
 });
 
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
@@ -73,7 +77,10 @@ const shipping = 0;
 const tax = subtotal * 0.08;
 const total = subtotal + shipping + tax;
 
-export default function CheckoutPageComponent({ user }: CheckoutPageComponentProps) {
+export default function CheckoutPageComponent({ user }:
+    CheckoutPageComponentProps) {
+
+    const address = user?.addresses[0]
 
     const {
         register,
@@ -82,15 +89,16 @@ export default function CheckoutPageComponent({ user }: CheckoutPageComponentPro
     } = useForm<CheckoutFormValues>({
         resolver: zodResolver(checkoutSchema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            state: "",
-            city: "",
-            address: "",
-        }
-    })
+            firstName: address?.firstName ?? "",
+            lastName: address?.lastName ?? "",
+            email: user?.email ?? "",
+            phone: user?.phone ?? "",
+            state: address?.state ?? "",
+            city: address?.city ?? "",
+            address: address?.street ?? "",
+            country: address?.country ?? "",
+        },
+    });
 
     const router = useRouter();
     const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">("cod")
