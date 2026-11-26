@@ -134,16 +134,58 @@ export default function CheckoutPageComponent({ user }:
                                 Shipping Address
                             </h2>
                             <div className="mt-6 grid gap-5 md:grid-cols-2">
-                                <Input label="First Name" placeholder="John" />
-                                <Input label="Last Name" placeholder="Doe" />
-                                <Input label="Email" placeholder="john@gmail.com" />
-                                <Input label="Phone Number" placeholder="+254 700 000 000" />
-                                <Input label="State" placeholder="California" />
-                                <Input label="City" placeholder="Burbank" />
+                                <Input
+                                    label="First Name"
+                                    placeholder="John"
+                                    {...register("firstName")}
+                                    error={errors.firstName?.message}
+                                />
+                                <Input
+                                    label="Last Name"
+                                    placeholder="Doe"
+                                    {...register("lastName")}
+                                    error={errors.lastName?.message}
+                                />
+                                <Input
+                                    label="Email Address"
+                                    placeholder="john@gmail.com"
+                                    {...register("email")}
+                                    error={errors.email?.message}
+                                />
+                                <Input
+                                    label="Phone Number"
+                                    placeholder="+254..."
+                                    {...register("phone")}
+                                    error={errors.phone?.message}
+                                />
+                                <Input
+                                    label="Country"
+                                    placeholder="USA"
+                                    {...register("country")}
+                                    error={errors.country?.message}
+                                />
+                                <Input
+                                    label="State"
+                                    placeholder="California"
+                                    {...register("city")}
+                                    error={errors.city?.message}
+                                />
+                                <Input
+                                    label="City"
+                                    placeholder="Burbank"
+                                    {...register("city")}
+                                    error={errors.city?.message}
+                                />
+                            </div>
 
-                                <div>
-                                    <Input label="Street Address" placeholder="No 3 ......" variant="textarea" />
-                                </div>
+                            <div>
+                                <Input
+                                    label="Street Address"
+                                    placeholder="No 11 ......"
+                                    variant="textarea"
+                                    {...register("address")}
+                                    error={errors.address?.message}
+                                />
                             </div>
                         </div>
 
