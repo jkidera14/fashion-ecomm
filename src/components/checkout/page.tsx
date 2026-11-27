@@ -13,6 +13,7 @@ import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getProfile } from "@/server-actions/user/getProfile";
 import { useForm } from "react-hook-form";
+import { useCartStore } from "@/store/cart-store";
 
 
 interface CheckoutPageComponentProps {
@@ -54,23 +55,6 @@ const checkoutSchema = z.object({
 
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
-const orderItems = [
-    {
-        id: 1,
-        name: "Classic Denim Jacket",
-        image: "/images/product1.png",
-        quantity: 1,
-        price: 79.99,
-    },
-    {
-        id: 2,
-        name: "Premium Hoodie",
-        image: "/images/product2.png",
-        quantity: 2,
-        price: 59.99,
-
-    },
-];
 
 const subtotal = 199.97;
 const shipping = 0;
@@ -80,8 +64,9 @@ const total = subtotal + shipping + tax;
 export default function CheckoutPageComponent({ user }:
     CheckoutPageComponentProps) {
 
-    const address = user?.addresses[0]
+    const { cartItems, clearCart, subtotal } = useCartStore();
 
+    const address = user?.addresses[0]
     const {
         register,
         handleSubmit,
@@ -256,8 +241,8 @@ export default function CheckoutPageComponent({ user }:
                         </h2>
 
                         <div className="mt-6 space-y-5">
-                            {orderItems.map((item) => (
-                                <div key={item.id} className="flex gap-4">
+                            {cartItems.map((item) => (
+                                <div key={item.cartKey} className="flex gap-4">
                                     <Image
                                         src={item.image}
                                         alt={item.name}
@@ -287,7 +272,7 @@ export default function CheckoutPageComponent({ user }:
                         <div className="mt-8 space-y-4">
                             <div className="flex justify-between">
                                 <span> Subtotal</span>
-                                <span>${subtotal.toFixed(2)}</span>
+                                <span>${subtotal().toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span> Shipping</span>
