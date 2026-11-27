@@ -56,10 +56,6 @@ const checkoutSchema = z.object({
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
 
-const subtotal = 199.97;
-const shipping = 0;
-const tax = subtotal * 0.08;
-const total = subtotal + shipping + tax;
 
 export default function CheckoutPageComponent({ user }:
     CheckoutPageComponentProps) {
@@ -86,7 +82,18 @@ export default function CheckoutPageComponent({ user }:
     });
 
     const router = useRouter();
-    const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">("cod")
+    const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">("cod");
+
+    const onSubmit = async (data: CheckoutFormValues) => {
+        console.log({
+            ...data,
+            paymentMethod,
+        });
+    };
+
+    const shipping = 0;
+    const tax = subtotal() * 0.08;
+    const total = subtotal() + shipping + tax;
     return (
         <FrontendLayout>
             <section className="mx-auto max-w-7xl py-12">
@@ -110,7 +117,11 @@ export default function CheckoutPageComponent({ user }:
                     </p>
                 </div>
 
-                <form className="grid gap-10 lg:grid-cols-[2fr_1fr]">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="grid gap-10 lg:grid-cols-[2fr_1fr]"
+                >
+
                     {/* Left */}
                     <div className="space-y-8">
                         {/* Shipping Address */}
