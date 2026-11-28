@@ -56,5 +56,87 @@ export async function createOrder(data: CreateOrderInput) {
         if (product.stock < item.quantity) {
             throw new Error(`${product.name} is out of stock.`);
         }
+        const price = Number(product.price);
+
+        subtotal += price * item.quantity;
+
+        return {
+            productId: product.id,
+            quantity: item.quantity,
+            price,
+            size: item.size,
+            color: item.color,
+        }
+    });
+
+    const shipping = 0;
+    const tax = subtotal * 0.05;
+    const total = subtotal + shipping + tax;
+
+    function generateOrderNumber() {
+        const year = new Date().getFullYear();
+
+        const random = Math.random()
+            .toString(36)
+            .substring(2, 8)
+            .toUpperCase();
+
+        return `ORD-${year}-${random}`;
+    }
+
+    // Create a Transaction
+    const order = await prisma.$transaction(async (tx) => {
+        let address = await tx.address.findFirst({
+            where: { userId: data.userId, isDefault: true }
+        });
+
+        if (!address) {
+            // {Lets create address for the User}
+            address = await tx.address.create({
+                data: {
+                    firstName: data.shippingAddress.firstName,
+                    lastName: data.shippingAddress.lastName,
+                    phone: data.shippingAddress.phone,
+                    street: data.shippingAddress.street,
+                    city: data.shippingAddress.city,
+                    state: data.shippingAddress.state,
+                    country: data.shippingAddress.country,
+                    isDefault: true,
+                    userId: data.userId,
+                }
+            })
+        }
+
+        for (const item of orderItems) {
+            await tx.product.update({
+                where: { id: item.productId },
+                data: {
+                    stock: {
+                        decrement: item.quantity
+                    }
+                }
+            })
+        }
+
+
+        const createOrder = await tx.order.create({
+            data: {
+                orderNumber: generateOrderNumber(),
+
+                stripeSessionId: data.stripeSessionId,
+
+                subtotal,
+                shipping,
+                tax,
+                total,
+
+                paymentMethod: data.paymentMethod,
+                paymentStatus: data.paymentStatus,
+                status: data.status ?? OrderStatus.PENDING,
+
+                userId: data.userId,
+                addressId: address.id,
+            }
+        })
     })
 }
