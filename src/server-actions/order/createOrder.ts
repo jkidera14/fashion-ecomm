@@ -119,7 +119,7 @@ export async function createOrder(data: CreateOrderInput) {
         }
 
 
-        const createOrder = await tx.order.create({
+        const createdOrder = await tx.order.create({
             data: {
                 orderNumber: generateOrderNumber(),
 
@@ -136,7 +136,15 @@ export async function createOrder(data: CreateOrderInput) {
 
                 userId: data.userId,
                 addressId: address.id,
+
+                items: {
+                    create: orderItems
+                }
             }
-        })
-    })
+        });
+        return createdOrder;
+
+    });
+
+    return order;
 }
